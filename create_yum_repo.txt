@@ -1,0 +1,35 @@
+Nautilus production support team and security team had a meeting last month in which they decided to use local yum repositories for maintaing packages needed for their servers. For now they have decided to configure a local yum repo on Nautilus Backup Server. This is one of the pending item from last month so please configure a local yum repository on Nautilus Backup Server as per details given below.
+
+
+a. We have some packages already present at location /packages/downloaded_rpms/ on Nautilus Backup Server.
+
+b. Create a yum repo named yum_local and make sure to set Repository ID to yum_local. Configure it to use packages location /packages/downloaded_rpms/.
+
+c. Install package wget from this newly created repo.
+
+    1  ls
+    2  cd /packages/
+    3  ls
+    4  cd downloaded_rpms/
+    5  ls
+    6  cd /etc/yum.repos.d/
+    7  ls
+    8  ls -la
+    9  cd ..
+   10  ls
+   11  cd
+   12  yum install wget  - we get error here 
+   13  sudo yum install wget
+   14  cd /etc/yum.repos.d/    --FROM HERE THE STEPS ARE STARTED
+   15  sudo vi yum_local.repo  --WE CREATED REPO FILE
+
+[yum_local]
+Name=yum_local
+baseurl=file:///packages/downloaded_rpms/
+enabled=1
+gpgcheck=0
+
+   16  sudo yum clean all
+   17  sudo yum instal wget
+   18  sudo yum install wget
+   19  history  
