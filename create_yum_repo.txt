@@ -29,7 +29,7 @@ baseurl=file:///packages/downloaded_rpms/
 enabled=1
 gpgcheck=0
 
-   16  sudo yum clean all
+   16  sudo yum clean all    --IT CLEANS ALL ENABLED DATA
    17  sudo yum instal wget
    18  sudo yum install wget
    19  history  
