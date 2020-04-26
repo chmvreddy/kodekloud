@@ -1,0 +1,37 @@
+Create a user
+=============
+
+
+For some security reasons xFusionCorp Industries security team has decided to use custom Apache users for each web application hosted there rather than its default user. Since this is going to be the Apache user so it shouldn't use the default home directory. Create the user as per requirements given below:
+
+
+a. Create a user named kareem on the App server 3 in Stratos Datacenter.
+
+b. Set UID to 1755 and its home directory to /var/www/kareem
+
+
+
+sudo useradd -u 1755 -d /var/www/kareem kareem
+              |       |			  |
+      userid(UID)     home directory     user
+
+
+    1  sudo useradd -u 1755 -d /var/www/kareem kareem
+    2  cat /etc/passwd
+       kareem:x:1755:1755::/var/www/kareem:/bin/bash  -- 
+    3  cd /var/
+    4  ls
+    5  sudo mkdir www
+    6  cd www/
+    7  sudo mkdir kareem
+    8  ls -la
+    9  sudo chown -R kareem kareem/
+   10  ls -la
+  
+
+Note :
+======
+
+	 1) everbody knows first we have to switch into app server 3 as per question
+	 2) In this class i learnt how to delete a user command is (userdel -r USERNAME) , and also i remembered how to change ownership once again...
+
