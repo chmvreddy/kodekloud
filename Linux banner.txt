@@ -1,0 +1,32 @@
+During the monthly compliance meeting, it was pointed out that several servers in the Stratos DC do not have a valid banner. The security team has provided serveral approved templates which should be applied to the servers to maintain compliance. These will be displayed to the user upon a successful login
+
+
+Update the message of the day on all application and db servers for Nautilus. Make use of the approved template located at /tmp/nautilus_banner on jump host
+
+1=== IN JUMP SERVER WE NEED TO APPLY THIS COMMAND TO MOVE FILE TO ANOTHER SERVER LIKE STAPP01
+		jump_thor~# scp /tmp/nautilus_banner tony@stapp01:/home/tony/
+		            scp /tmp/nautilus_banner steve@stapp02:/home/steve/
+			    scp /tmp/nautilus_banner banner@stapp03:/home/banner/
+			    scp /tmp/nautilus_banner peter@stdb01:/home/peter/
+
+
+    1  ls
+    2  sudo cat nautilus_banner >> /etc/motd       -- HERE I FACE AN ISSUUE UNABLE TO COPY FILE WHY BECAUSE THE OWNERSHIP IS DIFFERENT SO I CHANGED OWNERSHIP
+                                                   -- OR WE NEED TO GIVE SUDO PERMISSION TO USER
+    3  ls -la /etc/motd
+    4  sudo chown -R tony:tony /etc/motd
+    5  ls -la /etc/motd
+    6  sudo cat nautilus_banner >> /etc/motd
+    7  cat /etc/motd
+
+
+
+NOTE:
+=====
+
+		1.IT WILL DISPLAY AFTER SUCESSFULL LOGIN
+		2.UNABLE TO COPY FILE INTO DB SERVER SO , I LOGIN TO DBSERVER AND I INSTALLED (sudo yum install openssh-clients -y)OR FOR UBUNTU (apt-get install openssh-client) THIS COMMAND INSTALL "SCP"	
+		3.THIS PATH(/etc/issue) WILL DISPLAY BEFORE LOGIN
+
+		  Welcome to nixCraft Labs!
+		  Today is \d \t @ \n							
