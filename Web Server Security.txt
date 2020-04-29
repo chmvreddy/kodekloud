@@ -1,0 +1,56 @@
+During recent security audit, application security team of xFusionCorp Industries found some security issues with Apache web server on Nautilus App Server 2 server in Stratos DC. They have listed out some security issues that need to be fixed on this server. Please apply the below mentioned security settings:
+
+
+a. On Nautilus App Server 2 it was identified that Apache web server is exposing the version number. Make appropriate settings on this server to hide the version number of Apache web server.
+
+b. There is a website hosted under /var/www/html/news on App Server 2. It was detected that the directory /news is listing all of its contents while browsing the URL. Disable directory browser listing in Apache config.
+
+c. Also make sure to restart Apache service after making the changes.
+
+    1  sudo systemctl status httpd
+    2  sudo systemctl enable httpd
+    3  sudo systemctl start httpd
+    4  sudo systemctl status httpd
+    7  sudo vi /etc/httpd/conf/httpd.conf   
+ServerTokens Prod
+ServerSignature Off "      ------- ADD THIS LINES IN BELOW TO HIDE VERSION OF APACHE THIS IS TASK A
+
+To hide web server version number, server operating system details, installed Apache modules and more, open your Apache web server configuration file using your favorite editor
+
+    8  sudo systemctl restart httpd
+   10  cd /var/www/html/media
+   11  ls
+   12  sudo vi .htaccess
+<Directory /var/www/html/news/>
+      Options -Indexes
+</Directory>
+   13  sudo vi /etc/httpd/conf/httpd.conf       --CHANGE AllowOverride None to All (AllowOverride All) in <Directory "/var/www/html">
+
+** While using the .htaccess, make sure that Apache server is enabled to use .htaccess files for that directory. In most cases, .htaccess is disabled by default,
+to enable allowoverride to all
+** The first directory tag will disable using of .htaccess in /var/www directory. The second directory tag will enable the use of .htaccess under /var/www/html directory.
+	<VirtualHost *:80>
+ 	ServerName example.com
+ 	
+ 	# Disable .htaccess for /var/www directory for security
+ 	<Directory "/var/www">
+ 	Allowoverride none
+ 	</Directory>
+ 		
+ 	# Enable .htaccess for /var/www/html directory and its subdirectories
+ 	<Directory "/var/www/html">
+ 	Allowoverride all
+ 	</Directory>
+	</VirtualHost>
+
+   14  sudo systemctl restart httpd
+   15  cd
+  
+NOTE 
+=====
+1  sudo yum install net-tools
+2  netstat -ntpl
+3  curl ifconfig.me     --TO SHOW PUBLIC IP
+4  netstat -ntpl
+5  sudo yum install net-tools
+6  curl localhost
