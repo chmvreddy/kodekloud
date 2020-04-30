@@ -1,0 +1,42 @@
+set path environmental variable
+
+
+https://linuxize.com/post/how-to-install-apache-maven-on-centos-7/
+
+
+
+free java projects
+https://www.javatpoint.com/free-java-projects
+
+
+jiira website
+https://www.youtube.com/watch?v=VTcQJciaPu4
+
+
+chitii class
+=============
+DefaultEndpointsProtocol=https;AccountName=teststorage222234354;AccountKey=fupzlQuBBAkNaNUbriwQs7CMJiF/V+FodH2xMs/Q3Y8Ky0SBf/u0LwUu29h0NotqjXFQlCxuJb1GNuHo25BdxQ==;EndpointSuffix=core.windows.net
+
+
+
+fupzlQuBBAkNaNUbriwQs7CMJiF/V+FodH2xMs/Q3Y8Ky0SBf/u0LwUu29h0NotqjXFQlCxuJb1GNuHo25BdxQ==
+
+
+
+edureka pipe line
+===================
+https://www.youtube.com/watch?v=m0a2CzgLNsc
+
+linux lamp url
+==============
+
+https://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/
+
+
+
+
+
+
+
+
+
