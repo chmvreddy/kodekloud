@@ -1,0 +1,45 @@
+Nautilus production support team was trying to fix some issues with their storage server. Storage server has a shared directory /app which is mounted on all app servers at location /var/www/html so that whatever data they store on storage server under /web can be shared among all app servers. Now somehow NFS server is broken and having some issues.
+
+
+Identify the root cause of issue and fix the same to make sure sharing works fine among all app servers and storage server.
+
+In Storage server(NFS SERVER)
+=============================
+    1  sudo systemctl start nfs
+    2  sudo systemctl enable nfs
+    2  sudo systemctl status nfs
+    3  sudo vi /etc/exports                                         ---- HERE SHARED /web FOLDER WITH CLIENT SERVER
+/app 172.16.238.10(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+/app 172.16.238.11(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+/app 172.16.238.12(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+    4  sudo systemctl restart nfs
+
+
+Client Server (tony,steve,banner)or(app servers)
+================================================
+    1  sudo systemctl start nfs
+    2  sudo systemctl enable nfs
+    2  sudo systemctl status nfs    
+    3  sudo showmount -e 172.16.238.15                  -- IT SHOWS SHARE DIRECTORY AND IP ADDRESS SHOWS HERE 
+    4  sudo mount -t nfs 172.16.238.15:/app /var/www/html     ---THAT /web FOLDER DATA WHERE TO STORE IN CLIENT SERVER GIVE PATH HERE(/var/www/html)
+    5  sudo mount | grep nfs                                  --- IT SHOW WHICH DIRECTORY ON WHICH DIRECTORY
+    6  sudo vi /etc/fstab          
+       172.16.238.15:/app /var/www/html  nfs defaults 0 0
+
+--The above mount command(5) mounted the nfs shared directory on to nfs client temporarily, to mount an NFS directory permanently on your system across the reboots, we need to make an entry in “/etc/fstab“.
+    7   sudo systemctl restart nfs
+
+AFTER COMPLETED ALL LOGIN AND CHECK APP SERVER COPIED OR NOT 
+
+
+
+
+NOTE:
+=====
+
+-TO INSTALL NFS (1.sudo yum install nfs-utils nfs-utils-lib
+		 2.chkconfig --level 35 nfs on)
+- USED URL TO PROCESS --https://www.tecmint.com/how-to-setup-nfs-server-in-linux/
+
+ -(yum -y install openssh-server openssh-clients)  -TO RUN SSH COMMAND
+
