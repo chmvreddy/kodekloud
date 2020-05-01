@@ -33,6 +33,22 @@ linux lamp url
 https://www.tecmint.com/install-apache-mysql-php-on-redhat-centos-fedora/
 
 
+wordpress
+========
+https://www.tecmint.com/install-wordpress-with-apache-on-centos-rhel-fedora/
+
+
+
+
+<VirtualHost *:80>
+  ServerAdmin wordpress.cp4ixozmf09j.us-east-2.rds.amazonaws.com
+  DocumentRoot /var/www/html/wordpress
+  ServerName wordpress.cp4ixozmf09j.us-east-2.rds.amazonaws.com
+  ServerAlias www.wordpress.cp4ixozmf09j.us-east-2.rds.amazonaws.com
+  ErrorLog /var/log/httpd/wordpress-error-log
+  CustomLog /var/log/httpd/wordpress-acces-log common
+</VirtualHost>
+
 
 
 
