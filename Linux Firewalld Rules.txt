@@ -1,0 +1,15 @@
+Nautilus system admins team just deployed a web UI application for their backup utility running on Nautilus backup server in Stratos Datacenter. The application is running on port 6300 . They have firewalld installed on that server. Some requirements have came up as mentioned below:
+
+
+Open all incoming connection on 6300/tcp port. Zone should be public.
+
+
+    1  sudo systemctl status firewalld
+    2  sudo firewall-cmd --zone=public --list-all
+    3  sudo firewall-cmd --zone=public --list-ports
+    4  sudo firewall-cmd --permanent --zone=public --add-port=6300/tcp
+    5  sudo firewall-cmd --reload
+    6  sudo systemctl restart firewalld
+    7  sudo firewall-cmd --zone=public --list-all
+    8  sudo firewall-cmd --zone=public --list-ports
+

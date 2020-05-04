@@ -1,0 +1,19 @@
+A developer Jim has been assigned Nautilus project temporarily as a backup resource. Being a temporary resource for this project we need a temporary user for Jim. Its a good idea to create a user with some auto expiry date so that user won't be able to access servers once expired.
+
+
+So create a user named jim on the App server 2. Set expiry date to 2021-03-28 in Stratos Datacenter. Make sure the user is created as per standard and is in lowercase.
+
+
+
+    1  sudo adduser jim
+    2  sudo chage -E 2021-03-28 jim     --TO ADD EXPIRY DATE TO LINUX USER 
+    3  sudo chage -l jim                --TO SEE ALL INFORMATION FOR LINUX USER 
+
+NOTE:
+====
+1) (chage -d 2018-02-11 ravi)
+    --To set the date or number of days when the password was last changed, use the -d flag as follows
+2)  (chage -W 10 ravi)
+    --Then, the -W option allows you to set the number of days of warning before a password change is required. Considering the command below, the user ravi will be warned 10 days prior to his password expiring.
+3)  (man chage)
+    --MANUAL
