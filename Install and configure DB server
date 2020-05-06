@@ -1,0 +1,49 @@
+Install and Configure DB server :
+
+We recently migrated one of our WordPress website from old server to a new infrastructure in Stratos Datacenter. We have already setup LAMP except database. We have also restored website code however we need to restore database to make it work on new infra. Please perform the below given steps on DB host:
+a. Install/Configure MariaDB server.
+b. Create a database with name kodekloud_db4.
+c. There is a DB dump on jump_host under location /home/thor/db.sql. Restore this database in newly create database.
+d. Create a user kodekloud_aim and set any password you like.
+e. Grant full permissions to user kodekloud_aim on database kodekloud_db4.
+f. Update database related details in /data/wp-config.php file on storage server which is our NFS server having a share /data that is mounted on each app server on location /var/www/html. (for more details about how to update WordPress config file please visit https://wordpress.org/support/article/editing-wp-config-php/)
+g. You can access the website on LBR link, to do so click on the + button on top of your terminal and select option Select port to view on Host 1 and after adding port 80 click on Display Port.
+
+A) 	login to database server & install mariadb :
+	ssh peter@stdb01
+	sudo –i
+	yum install –y mariadb-server
+	systemctl start mariadb
+	systemctl enable mariadb
+
+Copy db.sql from thor server to db server to dump data:
+	scp db.sql peter@stdb01:/home/peter/ (if not working install openssh-clients in database server yum install openssh-clients)
+
+   	create database & user : 
+	 mysql_secure_installation	( Here you have to set root password)
+	 mysql –u root –p           		( Login to mysql )
+	 CREATE DATABASE kodekloud_db4;
+	 CREATE USER kodekloud_aim IDENTIFIED BY ‘password’;
+	 GRANT ALL privileges ON kodekloud_db4.* TO kodekloud_aim;
+	 mysql -u kodekloud_aim -p kodekloud_db4 < db.sql;  (import data)
+
+Edit wp-config.php in storage server:
+	ssh natasha@ststor01
+	sudo –i
+	vi /data/wp-config.php
+	ADD database information in that file like below
+db_name ‘kodekloud_db4’
+db_user ‘kodekloud_aim’
+db_host ; 	‘stdb01:3306’
+db_pass 	‘password’
+
+If the database is reach or not check it in any app server and run below command:
+
+yum install -y mariadb-server && systemctl start mariadb && systemctl enable mariadb && mysql -u kodekloud_aim -p -h stdb01
+
+Finally click select port to view on host1 in Terminal + icon if it reaching it is success.
+
+References:
+https://websiteforstudents.com/configure-remote-access-mysql-mariadb-databases/
+https://linuxize.com/post/how-to-create-mysql-user-accounts-and-grant-privileges/
+https://www.digitalocean.com/community/tutorials/how-to-import-and-export-databases-in-mysql-or-mariadb
