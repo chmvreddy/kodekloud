@@ -1,0 +1,38 @@
+xFusionCorp Industries has an application running on Nautlitus infrastructure in Stratos Datacenter. The monitoring tool recognised that there is an issue with the haproxy service on LBR server. That need to fixed to make the application work properly.
+
+
+Troubleshoot and fix the issue, and make sure haproxy service is running on Nautilus LBR server.
+
+    1  systemctl start haproxy
+    2  systemctl enable haproxy
+    3  systemctl status haproxy -l
+    4  cd /etc/haproxy/
+    5  haproxy -c -f haproxy.cfg       --(timeouts are set to a non-zero value: 'client', 'connect', 'server'.)
+    6  vi haproxy.cfg
+       	timeout connect  5000
+        timeout client  10000
+        timeout server  10000
+    7  systemctl restart haproxy
+    8  systemctl status haproxy -l
+
+NOTE 
+====
+
+
+2.2. Time format
+----------------
+
+Some parameters involve values representing time, such as timeouts. These
+values are generally expressed in milliseconds (unless explicitly stated
+otherwise) but may be expressed in any other unit by suffixing the unit to the
+numeric value. It is important to consider this because it will not be repeated
+for every keyword. Supported units are :
+
+  - us : microseconds. 1 microsecond = 1/1000000 second
+  - ms : milliseconds. 1 millisecond = 1/1000 second. This is the default.
+  - s  : seconds. 1s = 1000ms
+  - m  : minutes. 1m = 60s = 60000ms
+  - h  : hours.   1h = 60m = 3600s = 3600000ms
+  - d  : days.    1d = 24h = 1440m = 86400s = 86400000ms
+
+
