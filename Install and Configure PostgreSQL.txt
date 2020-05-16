@@ -1,0 +1,54 @@
+As per details shared by Nautilus application development team. they are planning to deploy one newly developed application on Nautilus infra in Stratos DC. Application uses PostgreSQL database. So as a pre-requisite we need to setup PostgreSQL database server as per requirements shared below:
+
+
+a. Install and configure PostgreSQL database on Nautilus database server.
+
+b. Create a database user kodekloud_tim and set its password to YchZHRcLkL.
+
+c. Create a database kodekloud_db8 and grant full permissions to user kodekloud_tim on this database.
+
+d. Make appropriate settings to allow all local clients (local socket connections) to connect to the kodekloud_db8 database through kodekloud_tim user using md5 encrypted password for authentication.
+
+e. At the end its good to test the db connection using these new credentials from root user or server's sudo user.
+
+    1  hostnamectl
+    2  yum update -y
+    3  sudo yum install postgresql-server postgresql-contrib -y
+    4  sudo postgresql-setup initdb
+    5  sudo systemctl start postgresql
+    6  sudo systemctl enable postgresql
+    7  sudo systemctl status postgresql
+    8  su - postgres
+   -bash-4.2$ psql
+   postgres=# CREATE DATABASE kodekloud_db8;
+   postgres=# CREATE USER kodekloud_tim WITH ENCRYPTED PASSWORD 'YchZHRcLkL';       
+   postgres=# GRANT ALL PRIVILEGES ON DATABASE kodekloud_db8 TO "kodekloud_tim";
+   postgres=# show grants for kodekloud_tim;
+   postgres=# \l
+   postgres=# \du+
+   postgres=# \q
+   -bash-4.2$ exit
+
+    9  psql -U kodekloud_tim -d kodekloud_db8 -h 127.0.0.1 -W
+   10  vi /var/lib/pgsql/data/pg_hba.conf
+
+          IPv4 & IPv6 connections change identity to md5
+IPv4
+host	all	all	127.0.0.1/32	md5
+IPv6
+host	all	all	::1/128		md5
+   11  systemctl restart postgresql
+   12  psql -U kodekloud_tim -d kodekloud_db8 -h 127.0.0.1 -W      --GIVE DATABASE USER PASSWORD HERE
+                                                    |
+                                                    |
+                                                HERE U CAN USE LOCALHOST
+
+
+NOTE
+====
+
+1 echo -n 'GyQkFRVNr3' | md5sum  -- TO SEE OUR PASSWORD IN ENCRYPT PASSWORD
+
+
+
+
