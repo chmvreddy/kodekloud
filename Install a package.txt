@@ -1,0 +1,11 @@
+As per new application requirements shared by the Nautilus project development team there are some new packages need to be installed on all app servers in Stratos Datacenter. Most of them are done except epel-release.
+
+So Install the epel-release package on all app-servers.
+
+
+   1  hostnamectl
+   2  sudo yum update -y
+   3  sudo yum search epel-release
+   4  rpm -qa | grep epel 
+   5  sudo yum install epel-release
+   6  sudo yum repolist         -- TO CHECK REPO LIST
