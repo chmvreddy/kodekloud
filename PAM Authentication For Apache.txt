@@ -1,0 +1,111 @@
+The document root /var/www/html of all web apps is on NFS share /data on storage server in Stratos Datacenter. We have a requirement where we want to password protect a directory in Apache web server document root. We want to password protect http://<website-url>:<apache_port>/protected URL as per below given requirements (you can use any website-url for it like localhost since there are no such specific requirements as of now):
+
+
+a. We want to use basic authentication.
+
+b. We do not want to use htpasswd file base authentication instead we want to use PAM authentication i.e Basic Auth + PAM. So that we can authenticate with a Linux user itself.
+
+c. We already have a user rose with password dCV3szSGNA which you need to provide access.
+
+d. You can access the website on LBR link, to do so click on the + button on top of your terminal and select option Select port to view on Host 1 and after adding port 80 click on Display Port.
+
+{I AM NOT SURE I DID THESE STEPS ON ALL THREE APP SERVER AS PER QUESTION 1APP IS OK}
+    1  systemctl start httpd
+    2  systemctl enable httpd
+    3  systemctl status httpd  
+    4  yum --enablerepo=epel -y install mod_authnz_external pwauth
+    5  vi /etc/httpd/conf.d/authnz_external.conf
+<Directory /var/www/html/protected>
+    #SSLRequireSSL
+    AuthType Basic
+    AuthName "PAM Authentication"
+    AuthBasicProvider external
+    AuthExternal pwauth
+    require valid-user
+</Directory>
+    6  systemctl restart httpd
+    7  curl -u rose:dCV3szSGNA http://2886795334-80-kitek06g.environments.katacoda.com/protected/
+( I GET THIS ABOVE URL AFTER GETTING OUTPUT )
+
+
+
+=======================================================================================================================================================================
+
+
+CREATING SSL CERTIFICATES
+=========================
+	Create a your server's original SSL Certificate. If you use your server as a business, it had better buy and use a Formal Certificate from Verisigh and so on.
+
+    1  systemctl start httpd
+    2  systemctl enable httpd
+    3  systemctl status httpd
+    4  cd /etc/pki/tls/certs
+    5  ls
+    6  make server.key
+    7  openssl rsa -in server.key -out server.key
+    8  make server.csr
+    9  openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 3650
+   10  chmod 400 server.*
+
+
+ENABLE & CONFIGURE SSL SETTINGS
+===============================
+
+   11  yum -y install mod_ssl
+   12  vi /etc/httpd/conf.d/ssl.conf
+# line 59: uncomment
+DocumentRoot "/var/www/html"
+
+# line 60: uncomment and specify the server name
+ServerName 	stapp01.stratos.xfusioncorp.com:443
+
+# line 75: change
+SSLProtocol -All +TLSv1 +TLSv1.1 +TLSv1.2
+
+# line 100: change to the one created in [1]
+SSLCertificateFile /etc/pki/tls/certs/server.crt
+
+# line 107: change to the one created in [1]
+SSLCertificateKeyFile /etc/pki/tls/certs/server.key
+
+   13  systemctl restart httpd
+
+Basic Auth + PAM
+=================  
+   14  yum --enablerepo=epel -y install mod_authnz_external pwauth
+   15  vi /etc/httpd/conf.d/authnz_external.conf
+<Directory /var/www/html/protected>
+    #SSLRequireSSL
+    AuthType Basic
+    AuthName "PAM Authentication"
+    AuthBasicProvider external
+    AuthExternal pwauth
+    require valid-user
+</Directory>
+   16  systemctl restart httpd
+
+
+Basic Authentication(using htpasswd)
+====================================
+
+   17  systemctl start httpd
+   18  systemctl enable httpd
+   19  systemctl status httpd
+   20  cat /etc/passwd
+   21  vi /etc/httpd/conf.d/auth_basic.conf
+<Directory /var/www/html/protected>
+    AuthType Basic
+    AuthName "Basic Authentication"
+    AuthUserFile /etc/httpd/conf/.htpasswd
+    require valid-user
+</Directory>
+   22  htpasswd -c /etc/httpd/conf/.htpasswd ravi     --HERE USERNAME RAVI(# add a user (create a new file with "-c" ? only add "-c" at the first time. Do not add it 2nd time to add users))  
+   23  cat /etc/httpd/conf/.htpasswd
+   24  systemctl restart httpd
+
+
+
+
+NOTE 
+====
+https://www.server-world.info/en/note?os=CentOS_6&p=httpd&f=12

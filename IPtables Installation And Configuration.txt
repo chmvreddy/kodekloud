@@ -1,0 +1,68 @@
+We have one of our website up and running on our Nautilus infrastructure in Stratos DC. Our security team has raised a concern that right now Apache’s port i.e 5002 is open for all since there is no firewall installed on these hosts. So we have decided to add some security layer for these hosts and after discussions and recommendations we have come up with below given requirements:
+
+   1  Install iptables and all its dependencies on each app host.
+
+   2  Block incoming port 5002 on all apps for everyone except for LBR host.
+
+   3  Make sure the rules should persist even after system reboot.
+
+DO SAME PROCEDURES FOR ALL APP SERVERS
+======================================
+   1  sudo yum install iptables-services -y
+   2  sudo systemctl start iptables
+   3  sudo systemctl enable iptables
+   4  sudo systemctl status iptables
+   5  sudo iptables -nvL 
+           (or)
+      cat /etc/sysconfig/iptables
+   6  sudo iptables -R INPUT 5 -p tcp --dport 5002 -s 172.16.238.14 -j ACCEPT      --HERE IT REPLACED AND destination port  
+   7  sudo iptables -A INPUT -p tcp --dport 5002 -j DROP
+   8  sudo service iptables save
+   9  curl 172.16.238.10:5002
+   
+
+LB SERVER 
+=========
+check with LBR server:
+login to LBR server check with appservers if it is reached or not 
+curl 172.16.238.10:5002
+curl 172.16.238.11:5002
+curl 172.16.238.12:5002
+
+
+
+NOTE 1
+======
+
+I agree that there is a problem with the wording of the question, because I did the same and got Faild Task also.
+
+Q. * Block incoming port 8084 on all apps for everyone except for LBR host.
+Does not say, “Ports to be blocked for all other hosts”
+Do they want to:
+
+Block all ports on all AppServers?
+Block all ports for all hosts, except 8084 for LBR host.
+Does “everyone” refer to every user or every host in Stratos except LBR?
+P.S. I thought that I should add my thoughts to your question because we had similar implementation. Only LBR could get http service from AppServers.
+“Q. * Block incoming port 8084 on all apps for everyone except for LBR host.”
+
+NOTE 2
+======
+
+Hi @bernardo_estevao following steps worked for me:
+Installation of IPtables:
+#yum install iptables-services -y
+#systemctl start iptables
+#systemctl enable iptables
+
+Adding the rules as per task
+According to the question we have to allow app server access through LBR host and that too only on the port as mentioned in the task . The 2nd thing here is we need to reject for “every” other incoming connection on port mentioned.
+IPTables check rules in a sequential manner so when we install iptables the last rule in INPUT table is of reject all. So I first replaced the rule using -R with
+this one:
+iptables -R INPUT 5 -p tcp --destination-port 8089 -s 172.16.238.14 -j ACCEPT
+and then appended this rule the table:
+iptables -A INPUT -p tcp --destination-port 8089 -j DROP
+Accordingly first iptables will check for accept rule and will allow for the incoming connection on the particular port from the LBR host and then it will go to the next rule which reject connections coming on that port.
+If we do the vice versa here , it will DROP every connection coming on to that port that is we have placed ACCEPT rule first.
+At last do not forget to save this rules to be persistent and check whether it is accessible from LBR host and rejects every other host.
+#service iptables save
