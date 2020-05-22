@@ -1,0 +1,30 @@
+We are having a backup management application UI hosted on Nautilus's backup server in Stratos DC. That backup management application code is deployed under Apache on backup server itself and Nginx is running as a reverse proxy on same server. Apache and Nginx ports are 8085 and 8098 respectively. We have iptables firewall installed on this server. Make the appropriate changes to fulfill the requirements mentioned below:
+
+
+We want to open all incoming connections to Nginx's port and want to block all incoming connections to Apache's port. Also make sure rules are permanent.
+
+
+    1  curl localhost:8085
+    2  curl localhost:8098
+    3  systemctl status httpd
+    4  systemctl enable httpd
+    5  systemctl status nginx
+    6  systemctl enable nginx
+    7  systemctl start iptables
+    8  systemctl enable iptables
+    9  systemctl status iptables
+   10  iptables -L
+   11  iptables -A INPUT -p tcp --dport 8098 -j ACCEPT     
+OR I DIDN'T TRIED (sudo iptables -A INPUT -p tcp --dport 8098 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT)
+
+   12  iptables -A INPUT -p tcp --dport 8085  -j REJECT
+OR I DIDN'T TRIED  (sudo iptables -A INPUT -p tcp --dport 8085 -m conntrack --ctstate NEW -j DROP)
+
+   13  iptables -L
+   14  service iptables save
+   15  iptables -L
+   16  curl localhost:8085
+   17  curl localhost:8098
+   18  iptables -nvL            -- FOR CHECKING PORTS
+   19  iptable-save             -- FOR CHECKING PORTS
+   
