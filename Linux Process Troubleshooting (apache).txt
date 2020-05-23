@@ -1,0 +1,19 @@
+The production support team of xFusionCorp Industries has deployed some latest monitoring tools to keep an eye on every service, application etc running on the systems. One of the monitoring system reported about Apache service unavailability on one of the app server In Stratos DC.
+
+Identify the faulty app host and fix the issue. Make sure Apache service is up and running on all app hosts. Also do not try to change the Apache port on any host.
+
+
+
+DO THESE STEPS IN ALL APP SERVER FIRST CHECK HTTPD START OR NOT
+===============================================================
+    1  systemctl start httpd
+    2  systemctl status httpd -l
+    3  cat /etc/httpd/conf/httpd.conf
+    4  netstat -ntpl
+    5  kill 255                  -----------CHECK PROCESSID(PID USING netstat -ntpl command)
+    6  systemctl start httpd
+    7  systemctl enable httpd
+    8  netstat -ntpl
+    9  curl localhost:6200
+
+
