@@ -1,0 +1,39 @@
+Some of the developers from Nautilus project team have asked for SFTP access to at least one of the app server in Stratos DC. After going through the requirements system admins team has decided to configure SFTP server on App Server 1 server in Stratos Datacenter. Please configure it as per below given instructions:
+
+
+a. Create an SFTP user yousuf and set its password to 8FmzjvFU6S.
+
+b. Password authentication should be enabled for this user.
+
+c. Set its ChrootDirectory to /var/www/app.
+
+d. SFTP user should only be allowed to make SFTP connections.
+
+
+    1  sudo mkdir -p /var/www/app
+    2  sudo useradd -d /var/www/app yousuf
+    3  cat /etc/passwd
+    4  sudo passwd yousuf
+    5  vi /etc/ssh/sshd_config
+
+Match User yousuf
+	PasswordAuthentication yes
+	ChrootDirectory %h
+	AllowTCPForwarding no
+	X11Forwarding no
+	ForceCommand internal-sftp
+	AllowAgentForwarding no
+	AllowTcpForwarding no
+	PermitTunnel no
+
+    6  service sshd restart
+    7  sudo chown root:root /var/www/app
+    8  sudo chmod 755 /var/www/app
+    9  sftp yousuf@stapp01
+
+
+
+NOTE
+====
+
+https://wisdmlabs.com/blog/create-an-sftp-user-with-limited-access-on-ubuntu/

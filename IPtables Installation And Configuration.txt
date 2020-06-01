@@ -15,7 +15,7 @@ DO SAME PROCEDURES FOR ALL APP SERVERS
    5  sudo iptables -nvL 
            (or)
       cat /etc/sysconfig/iptables
-   6  sudo iptables -R INPUT 5 -p tcp --dport 5002 -s 172.16.238.14 -j ACCEPT      --HERE IT REPLACED AND destination port  
+   6  sudo iptables -R INPUT 5 -p tcp --dport 5002 -s 172.16.238.14 -j ACCEPT      --HERE IT REPLACED AND destination port  LBR SERVER IP ADRESS WHICH ADDRESS WE WANT TO ALLOW GIVE IT HERE
    7  sudo iptables -A INPUT -p tcp --dport 5002 -j DROP
    8  sudo service iptables save
    9  curl 172.16.238.10:5002

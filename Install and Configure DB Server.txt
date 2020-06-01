@@ -15,7 +15,10 @@ f. Update database related details in /data/wp-config.php file on storage server
 
 g. You can access the website on LBR link, to do so click on the + button on top of your terminal and select option Select port to view on Host 1 and after adding port 80 click on Display Port.
     
-    1  hosnamectl                                   --TO CHECK LINUX OR CENTOS
+
+IN DB SERVER
+=============
+    1  hostnamectl                                   --TO CHECK LINUX OR CENTOS
     2  vi /etc/yum.repos.d/MariaDB.repo
     
 [mariadb]
@@ -47,7 +50,7 @@ OK, successfully used password, moving on...
 Setting the root password ensures that nobody can log into the MariaDB
 root user without the proper authorisation.
 
-Set root password? [Y/n] y
+Set root password? [Y/n] y                                                 ----HERE WE GAVE PASSWORD
  ... success.
 
 By default, a MariaDB installation has an anonymous user, allowing anyone
@@ -100,6 +103,7 @@ Thanks for using MariaDB!
 	MariaDB [kodekloud_db8]>select host, user, password from mysql.user;
 	MariaDB [kodekloud_db8]>GRANT ALL PRIVILEGES ON kodekloud_db8.* TO 'kodekloud_cap';
         MariaDB [kodekloud_db8]>show grants for kodekloud_cap;
+        MariaDB [kodekloud_db8]>exit
 
 -- ON JUMP SERVER
 =================
@@ -108,7 +112,7 @@ Thanks for using MariaDB!
 
 -- ON DATABASE SERVER
 =====================
-    12  mysql -u kodekloud_cap -p kodekloud_db8 < db.sql;      --RESTORING DUMP FILE IN DATABASE BY USING USER(IMPORT DATA)
+    12  mysql -u kodekloud_cap -p kodekloud_db8 < db.sql;      --RESTORING DUMP FILE IN DATABASE BY USING USER(IMPORT DATA)  -- it asks password of user
 
 -- ON STORAGE SERVER
 ====================

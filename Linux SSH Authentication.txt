@@ -1,0 +1,17 @@
+System admins team of xFusionCorp Industries has setup some scripts on jump host that run on some regular intervals and perform some operations on all app servers in Stratos Datacenter. To make these scripts work properly we need to make sure thor user on jump host has password less SSH access to all app servers through their respective sudo users. So based on the requirements:
+
+
+Setup a passwordless authentication for user thor on jump host to all app servers through their respective sudo users.
+
+
+
+    1  ssh-keygen
+    2  ssh-copy-id tony@stapp01
+    3  ssh-copy-id steve@stapp02
+    4  ssh-copy-id banner@stapp03
+    5  ssh tony@stapp01                --IF THIS 3 ARE LOGIN WITHOUT ASKING PASSWORD YOUR TASK SUCCESS
+    6  ssh steve@stapp02
+    7  ssh banner@stapp03
+
+
+ 
