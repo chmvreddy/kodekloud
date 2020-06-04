@@ -1,0 +1,48 @@
+xFusionCorp Industries has hosted some static websites on Nautilus Application Servers in Stratos DC. There are some confidential directories on document root that need to be password protected. Since they are using Apache for hosting the websites so production support team has decided to use .htaccess with basic auth. There is a website needs to be uploaded to /var/www/html/finance on Nautilus App Server 1. But before that we need to setup the authentication.
+
+
+1.Create /var/www/html/finance direcotry if doesn't exist.
+
+2.Add an user ravi in htpasswd and set its password to B4zNgHA7Ya.
+
+3.There is a file /tmp/index.html placed on Jump Server. Copy the same to new directory you created, please make sure default document root should remain /var/www/html.
+
+    1  sudo -i
+    2  sudo systemctl start httpd
+    3  sudo systemctl enable httpd
+    4  sudo systemctl status httpd
+    5  ls
+    6  cd /var/www/html/
+    7  sudo vi .htaccess
+
+  AuthType Basic
+  AuthName "Secure Content"
+  AuthUserFile /var/www/html/finance/.htpasswd
+  require valid-user
+
+    8  ls -la
+    9  sudo mkdir finance
+   10  ls
+   11  cd
+   12  sudo mv index.html /var/www/html/finance/
+   13  ls
+   14  sudo htpasswd -c /var/www/html/finance/.htpasswd ravi
+       password:B4zNgHA7Ya
+       retype password:B4zNgHA7Ya
+   15  cd /etc/httpd/conf/
+   16  sudo vi httpd.conf
+
+AllowOverride none (or) ALL --> AllowOverride AuthConfig       ----IN /VAR/WWW/HTML DIRECTORY U WILL FIND .HTACCESS NAME
+
+   17  cd /var/www/html/
+   18  sudo systemctl restart httpd
+   19  sudo curl http://localhost:8080
+   20  sudo curl http://localhost:8080 -u ravi
+
+
+https://tecadmin.net/configure-basic-authentication-in-apache-using-htaccess/
+
+https://www.tecmint.com/password-protect-apache-web-directories-using-htaccess/
+
+
+http://www.htaccess-guide.com/how-to-use-htaccess/

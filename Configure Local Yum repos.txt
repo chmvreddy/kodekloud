@@ -7,21 +7,14 @@ b. Create a yum repo named yum_local and make sure to set Repository ID to yum_l
 
 c. Install package wget from this newly created repo.
 
-    1  ls
-    2  cd /packages/
-    3  ls
-    4  cd downloaded_rpms/
-    5  ls
-    6  cd /etc/yum.repos.d/
-    7  ls
-    8  ls -la
-    9  cd ..
-   10  ls
-   11  cd
-   12  yum install wget  - we get error here 
-   13  sudo yum install wget
-   14  cd /etc/yum.repos.d/    --FROM HERE THE STEPS ARE STARTED
-   15  sudo vi yum_local.repo  --WE CREATED REPO FILE
+    1  cd /packages/downloaded_rpms/
+    2  ls
+    3  cd /etc/yum.repos.d/
+    4  ls
+    5  yum install wget  - we get error here 
+    6  sudo yum install wget
+    7  cd /etc/yum.repos.d/    --FROM HERE THE STEPS ARE STARTED
+    8  sudo vi yum_local.repo  --WE CREATED REPO FILE
 
 [yum_local]
 Name=yum_local
@@ -29,7 +22,13 @@ baseurl=file:///packages/downloaded_rpms/
 enabled=1
 gpgcheck=0
 
-   16  sudo yum clean all    --IT CLEANS ALL ENABLED DATA
-   17  sudo yum instal wget
-   18  sudo yum install wget
-   19  history  
+    9  sudo yum clean all    --IT CLEANS ALL ENABLED DATA
+   10  sudo yum instal wget
+   11  sudo yum install wget
+
+
+NOTE:
+====
+
+
+yum install vim-enhanced -y
