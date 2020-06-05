@@ -43,6 +43,36 @@ usermod -g <groupname> <username>  		--------		Change a User’s Primary Group {No
 usermod -a -G group1,group2,group3 exampleusername   --------    Add a User to Multiple Groups
 
 
+Linux Services
+===============
+
+As per details shared by development team the new application release has some dependencies on back end. There are some packages/services need to be installed on all app servers under Stratos Datacenter. As per requirements please perform below given steps:
+
+
+a. Install postfix package on all the application servers.
+
+b. Once installed, make sure it is enabled to start during boot.
+
+
+    1  sudo yum install postfix
+    2  sudo systemctl start postfix
+    3  sudo systemctl status postfix
+    4  sudo systemctl -l status postfix
+    5  sudo vi etc/hosts
+    6  sudo vi /etc/hosts
+1. Disable IPv6.
+2. Comment the ipv6 entry in /etc/hosts file.
+#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+    7  sudo systemctl restart postfix
+    8  sudo systemctl status postfix
+    9  sudo systemctl enable postfix
+   10  sudo systemctl status postfix
+   11  history
+
+http://manastri.blogspot.com/2016/12/fatal-parameter-inetinterfaces-no-local.html
+
+
 
 Linux Run Levels
 ================

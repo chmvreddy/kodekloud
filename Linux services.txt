@@ -5,24 +5,53 @@ a. Install cups package on all the application servers.
 
 b. Once installed, make sure it is enabled to start during boot.
 
-
-
-
-
-
-
-    1  sudo yum install cups
+    1  sudo yum install cups -y
     2  sudo systemctl status cups
     3  sudo systemctl start cups
     4  sudo systemctl enable cups
     5  sudo systemctl status cups
-    6  sudo vi /etc/hosts
+   
 
+As per details shared by development team the new application release has some dependencies on back end. There are some packages/services need to be installed on all app servers under Stratos Datacenter. As per requirements please perform below given steps:
+
+
+a. Install squid package on all the application servers.
+
+b. Once installed, make sure it is enabled to start during boot.
+
+
+
+    1  yum install squid
+    2  systemctl start squid
+    3  systemctl enable squid
+    4  systemctl status squid
+
+
+
+As per details shared by development team the new application release has some dependencies on back end. There are some packages/services need to be installed on all app servers under Stratos Datacenter. As per requirements please perform below given steps:
+
+
+a. Install postfix package on all the application servers.
+
+b. Once installed, make sure it is enabled to start during boot.
+
+
+    1  sudo yum install postfix
+    2  sudo systemctl start postfix
+    3  sudo systemctl status postfix
+    4  sudo systemctl -l status postfix
+    5  sudo vi etc/hosts
+    6  sudo vi /etc/hosts
 1. Disable IPv6.
 2. Comment the ipv6 entry in /etc/hosts file.
 #::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-    7  sudo systemctl status cups
-    8  sudo systenctl restart cups
-    9  sudo systemctl restart cups
-   10  history
+    7  sudo systemctl restart postfix
+    8  sudo systemctl status postfix
+    9  sudo systemctl enable postfix
+   10  sudo systemctl status postfix
+
+http://manastri.blogspot.com/2016/12/fatal-parameter-inetinterfaces-no-local.html
+
+
+
