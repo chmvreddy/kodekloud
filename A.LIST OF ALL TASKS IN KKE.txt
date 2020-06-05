@@ -1,0 +1,79 @@
+Hello,
+List of tasks I faced so far dividing into Sysadmin and Devops sections:
+
+Sysadmin tasks: 45
+
+|Create a Linux User with non-interactive shell |100|
+|Linux Kernel Parameters |100|
+|Create a Cron Job |200|
+|Create a group |200|
+|Create a user |200|
+|Disable Root Login |200|
+|DNS Troubleshooting |200|
+|Haproxy LBR Troubleshooting |200|
+|Linux Archives |200|
+|Linux Banner |200|
+|Linux Firewalld Rules |200|
+|Linux Remote Copy |200|
+|Linux Run Levels |200|
+|Linux Services |200|
+|Linux SSH Authentication |200|
+|Linux String Substitute |200|
+|Linux User Expiry |200|
+|Linux User Without Home |200|
+|MariaDB Troubleshooting |200|
+|NFS Troubleshooting |200|
+|Selinux Installation |200|
+|Apache Troubleshooting |300|
+|Application Security |300|
+|Configure Local Yum repos |300|
+|Configure protected directories in Apache |300|
+|Install a package |300|
+|Linux Bash Scripts |300|
+|Linux Find Command |300|
+|Linux Nginx as Reverse Proxy |300|
+|Linux Resource Limits |300|
+|Setup SSL for Nginx |300|
+|Web Server Security |300|
+|Install and Configure HaProxy LBR |400|
+|Linux Firewalld Setup |400|
+|Install and Configure NFS Server |600|
+|Install and Configure PostgreSQL |600|
+|Install And Configure SFTP |600|
+|Install and Configure Tomcat Server |600|
+|IPtables Installation And Configuration |600|
+|Linux Network Services |600|
+|Linux Process Troubleshooting |600|
+|PAM Authentication For Apache |600|
+|Install and Configure Nginx as an LBR |800|
+|Install and Configure DB Server |1000|
+|Install and Configure Web Application |1000|
+
+DevOps tasks: 26
+|Ansible Config File Update |100|
+|Git Clone Repositories |100|
+|Git Repository Update |100|
+|Install Ansible |100|
+|Install Docker Package |100|
+|Ansible Archive Module |200|
+|Ansible Basic Playbook |200|
+|Ansible Inventory Update |200|
+|Create a Docker Network |200|
+|Docker EXEC Operations |200|
+|Pull Docker Image |200|
+|Run a Docker Container |200|
+|Ansible Blockinfile Module |300|
+|Ansible Lineinfile Module |300|
+|Git Manage Remotes |300|
+|Managing Jinja2 Templates Using Ansible |300|
+|Write a Docker File |300|
+|Resolve Dockerfile Issues |400|
+|Git Setup from Scratch |600|
+
+Looking for assignment algorithm:
+31 Tasks at least duplicated
+including 13 3+ and two 5 times assigned.
+33 unique tasks
+which gives total of 64 tasks
+
+I hope this information will be useful for some of you. Additionally if u send me tasks I did not faced with points assigned to them I will update this post to have complete list.

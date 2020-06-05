@@ -1,0 +1,135 @@
+xFusionCorp Industries planning to host two static websites on their infra in Stratos Datacenter. The development of these websites is still in-progress but we want to get the servers ready. The storage server has a shared directory /data that is mounted on each app host under /var/www/html directory. Please perform below given steps to accomplish the task:
+
+
+a. Install httpd package and dependencies on all app hosts.
+
+b. Apache should serve on port 8080 within the apps.
+
+c. There are two website's backups /home/thor/beta and /home/thor/ecommerce on jump_host. Setup them on Apache in a way that beta should work on link http://<<lb-url>>/beta/ and ecommerce should work on link http://<<lb-url>>/ecommerce. (do not worry about load balancer configuration, its already configured)
+
+d. You can access the website on LBR link, to do so click on the + button on top of your terminal and select option Select port to view on Host 1 and after adding port 80 click on Display Port.
+
+
+
+ON JUMP SERVER
+==============  
+    1  sudo yum install -y openssh-clients openssh
+    2  sudo scp -r /home/thor/beta natasha@ststor01:/data/
+    3  sudo scp -r /home/thor/ecommerce natasha@ststor01:/data/
+
+ON STORAGE SERVER
+=================
+    1  sudo yum install -y openssh-clients openssh
+    2  cd /data
+    3  ls
+
+CHECK IN ALL APPLICATION SERVERS MOUNTED OR NOT IN /VAR/WWW/HTML/ 
+=================================================================
+    1  cd /var/www/html/
+    2  ls
+
+APP01
+=====
+    1  yum install httpd -y
+    2  systemctl start httpd
+    3  systemctl enable httpd
+    4  systemctl status httpd
+    5  vi /etc/httpd/conf/httpd.conf
+    
+--WE CAN GIVE STAPPP01 ALSO AT SERVERNAME HERE ITS WORKING I TESTED THAT
+
+Listen 8080
+
+<VirtualHost *:8080/beta>
+ServerName stapp01.stratos.xfusioncorp.com
+ServerAlias stapp01
+DocumentRoot /var/www/html/beta/
+</VirtualHost>
+<VirtualHost *:8080/ecommerce>
+ServerName stapp01.stratos.xfusioncorp.com
+ServerAlias stapp01
+DocumentRoot /var/www/html/ecommerce/
+</VirtualHost>
+
+    6  systemctl restart httpd
+    7  curl http://localhost:8080/beta/
+    8  curl http://localhost:8080/ecommerce/
+                 (OR)
+    9  curl http://stapp01:8080/beta/
+   10  curl http://stapp01:8080/ecommerce/
+
+APP02
+=====
+    1  yum install httpd -y
+    2  systemctl start httpd
+    3  systemctl enable httpd
+    4  systemctl status httpd
+    5  vi /etc/httpd/conf/httpd.conf
+    
+--WE CAN GIVE STAPPP01 ALSO AT SERVERNAME HERE ITS WORKING I TESTED THAT
+
+Listen 8080
+
+<VirtualHost *:8080/beta>
+ServerName stapp02.stratos.xfusioncorp.com
+ServerAlias stapp02
+DocumentRoot /var/www/html/beta/
+</VirtualHost>
+<VirtualHost *:8080/ecommerce>
+ServerName stapp02.stratos.xfusioncorp.com
+ServerAlias stapp02
+DocumentRoot /var/www/html/ecommerce/
+</VirtualHost>
+
+    6  systemctl restart httpd
+    7  curl http://localhost:8080/beta/
+    8  curl http://localhost:8080/ecommerce/
+                 (OR)
+    9  curl http://stapp02:8080/beta/
+   10  curl http://stapp02:8080/ecommerce/
+
+APP02
+=====
+    1  yum install httpd -y
+    2  systemctl start httpd
+    3  systemctl enable httpd
+    4  systemctl status httpd
+    5  vi /etc/httpd/conf/httpd.conf
+    
+--WE CAN GIVE STAPPP01 ALSO AT SERVERNAME HERE ITS WORKING I TESTED THAT
+
+Listen 8080
+
+<VirtualHost *:8080/beta>
+ServerName stapp03.stratos.xfusioncorp.com
+ServerAlias stapp03
+DocumentRoot /var/www/html/beta/
+</VirtualHost>
+<VirtualHost *:8080/ecommerce>
+ServerName stapp03.stratos.xfusioncorp.com
+ServerAlias stapp03
+DocumentRoot /var/www/html/ecommerce/
+</VirtualHost>
+
+    6  systemctl restart httpd
+    7  curl http://localhost:8080/beta/
+    8  curl http://localhost:8080/ecommerce/
+                 OR
+    9  curl http://stapp03:8080/beta/
+   10  curl http://stapp03:8080/ecommerce/
+
+
+
+NOTE
+====
+
+-HERE THEY USED LBR WE CONFIGURE 8080 PORT WHILE VIEWING ON HOST IT SHOWS 80 PORT DUE TO LBR OUR PORT IS NOT EXPOSE OUTSIDE.
+
+- IN THIS I LEARN HOW TO MOVE FOLDER THROUGH SCP , WE USE scp -r <sourcefile> user@servername:destination.
+
+- BELOW COMMANDS IS USED FOR CHECKING DETAILS 
+
+  curl -I http://localhost:<check-port of http>/blog/
+  curl -I http://<server-ip-addr>:<check-port of http>/news/
+  
+
