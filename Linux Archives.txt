@@ -1,0 +1,38 @@
+On Nautilus storage server in Stratos DC there is a storage location /data which is used by different developers to keep their data (no confidential data). One of the developer yousuf has raised a ticket and asked for a copy of his/her data present in /data/yousuf directory on storage server. /home is an FTP location on storage server from where developers can download their data. Below are the instructions shared by system admin team to accomplish the task:
+
+
+a. Make a yousuf.tar.gz compressed archive of /data/yousuf directory and move the archive to /home directory on storage server.
+
+
+    1  cd /data/yousuf/
+    2  ls                                             --IN THIS YOU HAVE FILES 123
+    3  cd
+    4  tar -czvf yousuf.tar.gz /data/yousuf/          -- WHERE YOU APPLY THIS COMMAND TAR FILE WILL BE THERE      
+    5  ls
+    6  cd /data/yousuf/
+    7  ls
+    8  cd
+    9  mv yousuf.tar.gz /home/
+   10  cd /home/
+   11  ls
+
+
+
+
+NOTE
+====
+
+
+1  c – Create an archive from a file(s) or directory(s).
+2  x – Extract an archive.
+3  r – Append files to the end of an archive.
+4  t – List the contents of the archive.
+5  f_ Refers the file name
+6. z_ Flag to compress the archive using gzip compression method
+
+ 
+
+
+
+
+

@@ -1,0 +1,44 @@
+To secure our Nautilus infrastructure in Stratos Datacenter we have decided to install and configure firewalld on all app servers. We have Apache and Nginx services running on these apps. Nginx is running as a reverse proxy server for Apache. We might have more robust firewall settings in future but for now we have decided to go with below given requirements:
+
+
+a. Allow all incoming connections on Nginx port.
+
+b. Allow incoming connections from LB host only on Apache port and block for rest.
+
+c. All rules must be permanent.
+
+d. Zone should be public.
+
+e. If Apache or Nginx services aren't running already please make sure to start them.
+
+
+DO THESE STEPS IN ALL APP SERVERS
+=================================
+
+    1  yum install firewalld -y
+    2  systemctl start firewalld
+    3  systemctl enable firewalld
+    4  systemctl status firewalld
+    5  sudo firewall-cmd --state                   --IT SHOWS RUNNING OR NOT
+    6  sudo firewall-cmd --get-default-zone        --IT SHOWS PUBLIC
+    7  systemctl status httpd
+    8  systemctl status nginx
+    9  vi /etc/nginx/nginx.conf
+   10  sudo firewall-cmd --zone=public --list-all
+   11  firewall-cmd --zone=public --add-port=8098/tcp --permanent             --ALLOWED NGINX PORT HERE
+   12  sudo firewall-cmd --zone=public --list-all 
+   13  sudo firewall-cmd --reload                                             -- RELOAD TO ACTIVATE CHANGES
+   14  cat /etc/httpd/conf/httpd.conf | grep Listen
+   15  firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=172.16.238.14 port port=8088 protocol=tcp accept'
+   16  sudo firewall-cmd --reload
+   17  sudo firewall-cmd --zone=public --list-all
+   18  systemctl status httpd
+   19  systemctl status nginx
+
+
+
+
+NOTE
+====
+
+https://www.rootusers.com/how-to-use-firewalld-rich-rules-and-zones-for-filtering-and-nat/#:~:text=Firewalld%20Zones%20And%20Services&text=The%20zone%20specifies%20the%20firewall,rules%20applied%20to%20that%20zone.

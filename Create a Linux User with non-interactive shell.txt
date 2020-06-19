@@ -1,0 +1,21 @@
+System admins team of xFusionCorp Industries has installed a backup agent tool on all app servers, as per tool's requirements they need to create a user with a non-interactive shell.
+
+
+So create a user named john with a non-interactive shell in the app03 server.
+
+
+
+    1  cat /etc/passwd
+    2  sudo adduser john -s /sbin/nologin
+    3  cat /etc/passwd
+
+
+
+NOTE
+====
+
+sudo groupadd <groupname>
+usermod -a -G <groupname> <username>  ---TO ADD USER TO GROUP
+usermod -g <groupname> <username>  		--------		Change a User’s Primary Group {Note the -g here. When you use a lowercase g, you assign a primary group. When you use an uppercase -G , as above, you assign a new secondary group.}
+usermod -a -G group1,group2,group3 exampleusername   --------    Add a User to Multiple Groups
+

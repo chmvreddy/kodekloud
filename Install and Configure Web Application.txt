@@ -88,7 +88,7 @@ DocumentRoot /var/www/html/ecommerce/
     9  curl http://stapp02:8080/beta/
    10  curl http://stapp02:8080/ecommerce/
 
-APP02
+APP03
 =====
     1  yum install httpd -y
     2  systemctl start httpd

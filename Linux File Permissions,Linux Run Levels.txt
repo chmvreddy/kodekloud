@@ -16,64 +16,6 @@ Please give executable permissions to /tmp/xfusioncorp.sh script on App Server 1
     8  cd
     9  history
 
-
-
-
-Create a Linux User with non-interactive shell
-==============================================
-
-System admins team of xFusionCorp Industries has installed a backup agent tool on all app servers, as per tool's requirements they need to create a user with a non-interactive shell.
-
-
-So create a user named ravi with a non-interactive shell in the app03 server.
-
-
-
-    1  cat /etc/passwd
-    2  adduser ravi
-    3  sudo adduser ravi -s /sbin/nologin
-    4  adduser ravi -s /sbin/nologin
-    5  sudo  adduser ravi -s /sbin/nologin
-    6  cat /etc/passwd
-    7  history
-
-sudo groupadd <groupname>
-usermod -a -G <groupname> <username>  ---TO ADD USER TO GROUP
-usermod -g <groupname> <username>  		--------		Change a User’s Primary Group {Note the -g here. When you use a lowercase g, you assign a primary group. When you use an uppercase -G , as above, you assign a new secondary group.}
-usermod -a -G group1,group2,group3 exampleusername   --------    Add a User to Multiple Groups
-
-
-Linux Services
-===============
-
-As per details shared by development team the new application release has some dependencies on back end. There are some packages/services need to be installed on all app servers under Stratos Datacenter. As per requirements please perform below given steps:
-
-
-a. Install postfix package on all the application servers.
-
-b. Once installed, make sure it is enabled to start during boot.
-
-
-    1  sudo yum install postfix
-    2  sudo systemctl start postfix
-    3  sudo systemctl status postfix
-    4  sudo systemctl -l status postfix
-    5  sudo vi etc/hosts
-    6  sudo vi /etc/hosts
-1. Disable IPv6.
-2. Comment the ipv6 entry in /etc/hosts file.
-#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-
-    7  sudo systemctl restart postfix
-    8  sudo systemctl status postfix
-    9  sudo systemctl enable postfix
-   10  sudo systemctl status postfix
-   11  history
-
-http://manastri.blogspot.com/2016/12/fatal-parameter-inetinterfaces-no-local.html
-
-
-
 Linux Run Levels
 ================
 There are some new tools have been installed on app server in Stratos Datacenter. Some of these tools can only be managed from graphical interface. So there are some requirements came up for these app servers.

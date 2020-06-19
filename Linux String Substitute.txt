@@ -1,0 +1,26 @@
+The backup server in the Stratos DC contains several template XML files used by the Nautilus application. These template XML files must however be populated with valid data before it can be used. One of the daily tasks of a system admin working in the xFusionCorp industries, is to apply string and file manipulation commands!
+
+
+Replace all occurances of the string Text to Echo-Location on the XML file /root/nautilus.xml located in the backup server.
+
+
+
+BACKUP SERVER
+=============
+    1  cd /root/
+    2  ls
+    3  cat nautilus.xml
+    4  sed 's/Text/Echo-Location/g' nautilus.xml             --I USED THIS COMMAND TO REPLACE BUT IT REPLACES HALF ONLY
+    5  cat nautilus.xml
+    9  cat nautilus.xml | grep Text
+   10  sudo sed -i 's/Text/Echo-Location/g' nautilus.xml     --THIS COMMAND WORKED "-i" TO CHANGE PERMINANTLY WE USE -i 
+   11  cat nautilus.xml | grep Text
+
+NOTE
+====
+-TODAY I LEARNT SED COOMANDIS USED TO
+     
+  -SED is a powerful text stream editor. Can do insertion, deletion, search and replace(substitution).
+  -SED command in unix supports regular expression which allows it perform complex pattern matching.
+
+https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/

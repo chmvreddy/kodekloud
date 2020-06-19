@@ -1,0 +1,14 @@
+For our infrastructure in Stratos Datacenter we have a requirement to serve our website code from a common/shared location that can be shared among all app nodes. For this we came up with a solution to use NFS (Network File System) server that can store the data and we can mount the share among our app nodes. The dedicated NFS server going to be our storage server. To accomplish this task do the following given steps:
+
+
+1.Install required NFS packages on storage server.
+
+2.Configure storage server to act as an NFS server.
+
+3.Make a NFS share /webdata on storage server.
+
+4.Install and configure NFS client packages on all app nodes and configure them to act as NFS client.
+
+5.Mount /webdata directory on all app nodes at /var/www/code directory (Create the directories if don't exist).
+
+6.Start and enable required services.
