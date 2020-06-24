@@ -1,0 +1,15 @@
+Some new requirements came up to automate a backup process that was done by xFusionCorp Industries system admins team manually earlier. To automate this task team has developed a new bash script xfusioncorp.sh. They have already copied the script on all required servers, however they missed to make it executable on one of the app server i.e App Server 1 in Stratos Datacenter.
+
+
+Please give executable permissions to /tmp/xfusioncorp.sh script on App Server 1. Also make sure every user should be able to execute it.
+
+    1  cd  /tmp/
+    2  ls
+    3  ls -la
+    4  ls -l
+    5  chmod +x xfusioncorp.sh
+    6  sudo chmod +x xfusioncorp.sh
+	sudo ./ xfusioncorp.sh
+    7  ls -l
+    8  cd
+    9  history

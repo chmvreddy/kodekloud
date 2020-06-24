@@ -7,12 +7,14 @@ xFusionCorp Industries has hosted some static websites on Nautilus Application S
 
 3.There is a file /tmp/index.html placed on Jump Server. Copy the same to new directory you created, please make sure default document root should remain /var/www/html.
 
+  
+FIRST WE NEED TO MOVE INDEX.HTML FROM JUMP TO APPLICATION SERVER THROUGH SCP    (scp index.html banner@stapp03:/home/banner/)
     1  sudo -i
     2  sudo systemctl start httpd
     3  sudo systemctl enable httpd
     4  sudo systemctl status httpd
-    5  ls
-    6  cd /var/www/html/
+    5  cd /var/www/html/
+    6  ls
     7  sudo vi .htaccess
 
   AuthType Basic

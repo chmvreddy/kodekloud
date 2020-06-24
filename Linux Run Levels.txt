@@ -1,0 +1,49 @@
+New tools have been installed on the app server in Stratos Datacenter. Some of these tools can only be managed from the graphical user interface. Therefore, there are requirements for these app servers.
+
+
+On all App servers in Stratos Datacenter change the default runlevel so that they can boot in GUI (graphical user interface) by default.
+
+
+    1  systemctl get-default
+    2  sudo systemctl isolate graphical.target
+    3  sudo systemctl get-default
+    4  systemctl set-default graphical.target       --SET DEFAULT TO GET AFTER BOOT WE NEED THIS COMMAND
+    5  sudo systemctl get-default
+   
+
+NOTE:
+=====
+
+1. https://www.tecmint.com/change-runlevels-targets-in-systemd/ 
+
+2.  1  runlevel
+    2  init 5
+    3  systemctl status runlevel5.target
+    4  sudo init $runlevel
+    5  sudo vi /etc/init/rc-sysinit.conf
+    6  cd /etc/inittab
+    7  sudo vi /etc/inittab
+    8  sudo systemctl get-default
+    9  sudo vi /etc/inittab
+   10  sudo systemctl get-default
+   11  sudo vi /etc/inittab
+   12  who -r
+   13  init 5
+   14  sudo init 5
+   15  reboot
+   16  systemctl isolate multi-user.target
+   17  sudo systemctl isolate multi-user.target
+   18  sudo systemctl list-units --type=target
+   19  sudo systemctl isolate graphical.target
+   20  sudo systemctl isolate runlevel5.target
+   21  ls -l /usr/lib/systemd/system/runlevel5.target
+   22  history
+   23  runlevel
+   24  echo $RUNLEVEL
+   25  systemctl get-default
+   26  sudo vi /etc/inittab
+   27  sudo systemctl isolate graphical.target
+   28  sudo systemctl get-default
+   29  sudo systemctl set-default graphical.target
+   30  sudo systemctl get-default
+   31  history

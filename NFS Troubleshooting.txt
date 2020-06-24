@@ -21,7 +21,7 @@ Client Server (tony,steve,banner)or(app servers)
     2  sudo systemctl enable nfs
     2  sudo systemctl status nfs    
     3  sudo showmount -e 172.16.238.15                  -- IT SHOWS SHARE DIRECTORY AND IP ADDRESS SHOWS HERE 
-    4  sudo mount -t nfs 172.16.238.15:/app /var/www/html     ---THAT /web FOLDER DATA WHERE TO STORE IN CLIENT SERVER GIVE PATH HERE(/var/www/html)
+    4  sudo mount -t nfs 172.16.238.15:/app /var/www/html     ---THAT /app FOLDER DATA WHERE TO STORE IN CLIENT SERVER GIVE PATH HERE(/var/www/html)
     5  sudo mount | grep nfs                                  --- IT SHOW WHICH DIRECTORY ON WHICH DIRECTORY
     6  sudo vi /etc/fstab          
        172.16.238.15:/app /var/www/html  nfs defaults 0 0

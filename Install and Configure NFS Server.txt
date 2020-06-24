@@ -12,3 +12,93 @@ For our infrastructure in Stratos Datacenter we have a requirement to serve our 
 5.Mount /webdata directory on all app nodes at /var/www/code directory (Create the directories if don't exist).
 
 6.Start and enable required services.
+
+
+
+
+Install NFS server in storage server
+
+sudo yum install nfs-utils nfs-utils-lib	
+sudo systemctl start nfs
+
+sudo systemctl enable 
+
+For sharing a directory with NFS, we need to make an entry in “/etc/exports” configuration file. 
+
+ 
+
+sudo vi /etc/exports
+
+/nfsdata
+172.16.238.10(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+/nfsdata 
+172.16.238.11(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+/nfsdata 
+172.16.238.12(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+
+
+
+Restart the nfs server
+
+
+
+sudo systemctl restart nfs
+
+
+
+Install nfs in all app servers
+
+	
+
+sudo yum install nfs-utils nfs-utils-lib
+
+sudo systemctl start nfs
+
+sudo systemctl enable nfs
+
+sudo showmount -e 172.16.238.15 ( it will shows the shared directory & Ipaddresses of all appservers)
+
+mkdir –p /var/www/nfsdata
+
+
+
+Mount Shared Directory in all app servers
+
+
+
+sudo mount -t nfs 172.16.238.15:/nfsdata /var/www/nfsdata
+
+
+
+sudo mount | grep nfs   ( check whether the directory is mounted successfully or not )
+
+
+
+The above mount command mounted the nfs shared directory on to nfs client temporarily, to mount an NFS directory permanently on your system across the reboots, we need to make an entry in “/etc/fstab“.
+
+
+
+vi  /etc/fstab    ( Add below line in that file)
+
+
+
+172.16.238.15:/nfsdata /var/www/nfsdata  nfs defaults 0 0
+
+
+
+Restart the nfs server
+ 
+
+
+systemctl restart nfs
+
+
+
+Test the working setup of NFS
+
+
+
+Create a file in /var/www/nfsdata in each app server
+
+
+Check that file in /nfsdata in storage server.
