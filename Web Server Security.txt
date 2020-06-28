@@ -18,7 +18,7 @@ ServerSignature Off "      ------- ADD THIS LINES IN BELOW TO HIDE VERSION OF AP
 To hide web server version number, server operating system details, installed Apache modules and more, open your Apache web server configuration file using your favorite editor
 
     8  sudo systemctl restart httpd
-   10  cd /var/www/html/media
+   10  cd /var/www/html/news
    11  ls
    12  sudo vi .htaccess
 <Directory /var/www/html/news/>

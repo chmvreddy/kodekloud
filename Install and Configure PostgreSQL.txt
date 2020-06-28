@@ -29,7 +29,7 @@ e. At the end its good to test the db connection using these new credentials fro
    postgres=# \q
    -bash-4.2$ exit
 
-    9  psql -U kodekloud_tim -d kodekloud_db8 -h 127.0.0.1 -W
+    9  psql -U kodekloud_tim -d kodekloud_db8 -h 127.0.0.1 -W     -- IT WILL NOT SIGNIN BECAUSE WE DIDN'T CHANGED MD5
    10  vi /var/lib/pgsql/data/pg_hba.conf
 
           IPv4 & IPv6 connections change identity to md5

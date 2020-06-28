@@ -12,6 +12,12 @@ Troubleshoot and fix the issue, and make sure haproxy service is running on Naut
        	timeout connect  5000
         timeout client  10000
         timeout server  10000
+              
+               (or)
+
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
 
        REMOVE # BEFORE backend app
     7  systemctl restart haproxy
