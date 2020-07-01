@@ -1,0 +1,20 @@
+The system admins team of xFusionCorp Industries has noticed intermittent issues with DNS resolution in several apps . App Server 1 in Stratos Datacenter is having some DNS resolution issues, so we want to add some additional DNS nameservers on this server.
+
+
+As a temporary fix we have decided to go with Google public DNS. Please make appropriate changes on this server.
+
+
+    1  cd /etc/
+    2  ls
+    3  cat resolv.conf
+    4  vi resolv.conf
+       search stratos.xfusioncorp.com
+       nameserver 8.8.8.8                       --CHANGED NAME SERVER TO 127.0.0.0 TO 8.8.8.8
+       options ndots:0
+   
+
+NOTE
+====
+1. https://linuxhint.com/google-dns-tutorial/
+2. https://developers.google.com/speed/public-dns/docs/using
+

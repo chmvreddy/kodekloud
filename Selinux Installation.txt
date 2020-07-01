@@ -24,7 +24,7 @@ Install the required packages of SElinux on App server 2 in Stratos Datacenter a
 #     enforcing - SELinux security policy is enforced.
 #     permissive - SELinux prints warnings instead of enforcing.
 #     disabled - No SELinux policy is loaded.
-SELINUX=disabled
+SELINUX=disabled                                                --CHANGED ENFORCING TO DISABLE
 # SELINUXTYPE= can take one of these two values:
 #     targeted - Targeted processes are protected,
 #     minimum - Modification of targeted policy. Only selected processes are protected. 
