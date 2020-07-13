@@ -1,0 +1,17 @@
+There are specific access levels for users defined by the xFusionCorp Industries system admin team. Rather than providing access levels to every individual user, the team has decided to create groups with required access levels and add users to that groups as needed. See the following requirements:
+
+
+a. Create a group named nautilus_noc in all App servers in Stratos Datacenter.
+
+b. Add the user stark to nautilus_noc in all App servers. (create the user if not present already)
+
+
+    1  cat /etc/passwd
+    2  cat /etc/group
+    3  sudo groupadd nautilus_noc
+    4  cat /etc/group
+    5  adduser stark
+    6  cat /etc/passwd
+    7  usermod -a -G nautilus_noc stark            -- ADDING USER TO GROUP
+    8  cat /etc/passwd
+    9  cat /etc/group

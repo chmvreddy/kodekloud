@@ -1,0 +1,56 @@
+xFusionCorp Industries utilizes monitoring tools to check the status of every service, application, etc. running on the systems. The monitoring system identified that Apache service is not running on some of the Nautilus Application Servers in Stratos Datacenter.
+
+
+a.Identify the faulty Nautilus Application Servers and fix the issue. Also, make sure Apache service is up and running on all Nautilus Application Servers. Do not try to stop any kind of firewall that is already running.
+
+b.Apache is running on 6100 port on all Nautilus Application Servers and its document root must be /var/www/html on all app servers.
+
+c.Finally you can test from jump host using curl command to access Apache on all app servers and it should work fine. E.g. curl http://172.16.238.10:6100/
+
+
+CHECK IN ALL APP SERVERS IN PORT 6100 AND CHECK HOME DIRECTORY WILL BE /VAR/WWW/HTML
+===================================================================================
+    
+
+
+    1  httpd -v
+    2  sudo systemctl start httpd
+    3  sudo systemctl enable httpd
+    4  sudo systemctl -l status httpd
+    5  sudo vi /etc/httpd/conf/httpd.conf
+    6  sudo systemctl restart httpd
+    7  sudo systemctl status httpd
+
+
+              &&
+
+   
+
+
+
+ERRORS
+======
+
+1st Error
+=========
+AH00526: Syntax error on line 42 of /etc/httpd/conf/httpd.conf:
+Jul 09 07:16:35 stapp01 httpd[271]: Invalid command 'Listen 6100', perhaps misspelled or defined by a module not included in the server configuration
+
+2ND Error
+=========
+Jul 09 07:19:32 stapp01 httpd[287]: AH00526: Syntax error on line 119 of /etc/httpd/conf/httpd.conf:
+Jul 09 07:19:32 stapp01 httpd[287]: DocumentRoot '/var/www;' is not a directory, or is not readable
+
+3rd Error
+========
+httpd: Syntax error on line 31 of /etc/httpd/conf/httpd.conf: ServerRoot must be a valid directory
+Jul 09 07:32:01 stapp03 systemd[1]: httpd.service: main process exited, code=exited, status=1/FAILURE
+
+
+ServerRoot /etc/httpd     HERE REMOVED ServerRoot "/etc/httpd:"
+
+4th Error
+=========
+
+Changed port number 8080 to 6300
+

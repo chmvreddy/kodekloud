@@ -1,0 +1,99 @@
+The system admins team of xFusionCorp Industries needs to deploy a new application on App Server 2 in Stratos Datacenter. They have some pre-requites to get ready that server for application deployment. Prepare the server as per requirements shared below:
+
+
+1.Install and configure nginx on App Server 3.
+
+2.On App Server 2 there is a self signed SSL certificate and key present at location /tmp/nautilus.crt and /tmp/nautilus.key. Move them to some appropriate location and deploy the same in Nginx.
+
+3.Create an index.html file with content Welcome! under Nginx document root.
+
+4.For final testing try to access the App Server 3 link (either hostname or IP) from jump host using curl command. For example curl -Ik https://<app-server-ip>/.
+
+
+
+  
+ROOT
+
+    1  yum update -y
+    2  yum install epel-release -y
+    3  yum install nginx -y
+    4  systemctl start nginx
+    5  systemctl enable nginx
+    6  systemctl status nginx
+    7  yum -y install mod_ssl          --- FIRST QUESTION COMPLETED UPTO HERE
+  
+    4  cd /usr/share/nginx/html
+    6  ls
+    7  sudo unlink index.html          --WHEN I UNLINKED INDEX.HTML IS REMOVED AUTOMATTICALLY THEN I CREATED NEWONE AS PER QUESTION(3)
+    8  ls
+    9  vi index.html                   --IN THIS I ADD Welcome!
+   10  ls
+   11  cd /tmp/
+   12  cat nautilus.crt
+   13  cat nautilus.key
+   14  ls -la
+   15  chmod 777 nautilus.crt nautilus.key
+   16  ls -la
+   17  cp nautilus.crt /usr/share/nginx/html/
+   18  cp nautilus.key /usr/share/nginx/html/
+   19  cd /usr/share/nginx/html/                      ---UPTO HERE CRT&KEY FILE COPIED TO APPROPRIATE LOCATION (COPY OR MOVE YOUR WISH)
+   20  ls
+   21  vi /etc/nginx/nginx.conf
+             
+
+    # add into "server" section
+    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        listen       443 ssl;                      --ADD THIS LINE
+        server_name  172.16.238.12;                --HERE ADD IPADDRESS
+        root         /usr/share/nginx/html;
+        index        index.html                    --ADDD THIS LINE
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_ciphers ECDHE+RSAGCM:ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:!aNULL!eNull:!EXPORT:!DES:!3DES:!MD5:!DSS;
+        ssl_certificate      /usr/share/nginx/html/nautilus.crt;
+        ssl_certificate_key  /usr/share/nginx/html/nautilus.key;               
+              
+
+   22  systemctl restart nginx
+  
+   
+  
+   
+OUTPUT QUESTION 4
+=================
+thor@jump_host /$ curl -Ik https://172.16.238.12/
+HTTP/1.1 200 OK
+Server: nginx/1.16.1
+Date: Mon, 13 Jul 2020 08:48:33 GMT
+Content-Type: text/html
+Content-Length: 9
+Last-Modified: Mon, 13 Jul 2020 08:26:28 GMT
+Connection: keep-alive
+ETag: "5f0c1ab4-9"
+Accept-Ranges: bytes
+
+
+
+https://www.server-world.info/en/note?os=CentOS_7&p=nginx&f=4
+
+
+https://community.kodekloud.com/t/install-nginx-and-setup/4305/12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

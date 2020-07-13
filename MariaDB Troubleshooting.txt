@@ -4,6 +4,8 @@ There is a critical issue going on with the Nautilus application in Stratos DC. 
 Look into the issue and fix the same.
 
 
+DATABASE SERVER
+===============
 
     1  systemctl status mariadb
     2  systemctl start mariadb
@@ -19,4 +21,11 @@ Look into the issue and fix the same.
    12  ls -la
    13  systemctl restart mariadb
    14  systemctl start mariadb
-   15  systemctl status mariadb    
+   15  systemctl status mariadb 
+
+SAME TASK ON OTHER DAY
+======================
+
+   1  cd /var/lib/                 --INTHIS PATH ALSO WE HAVE MYSQL RELATED FILES SO CHANGE OWNERSHIP TO MYSQL
+   2  ls -la 
+   3  chown mysql:mysql mysql/   
