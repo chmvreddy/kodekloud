@@ -21,13 +21,7 @@ CHECK IN ALL APP SERVERS IN PORT 6100 AND CHECK HOME DIRECTORY WILL BE /VAR/WWW/
     6  sudo systemctl restart httpd
     7  sudo systemctl status httpd
 
-
-              &&
-
-   
-
-
-
+              && 
 ERRORS
 ======
 

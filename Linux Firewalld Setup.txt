@@ -29,7 +29,7 @@ DO THESE STEPS IN ALL APP SERVERS
    12  sudo firewall-cmd --zone=public --list-all 
    13  sudo firewall-cmd --reload                                             -- RELOAD TO ACTIVATE CHANGES
    14  cat /etc/httpd/conf/httpd.conf | grep Listen
-   15  firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=172.16.238.14 port port=8088 protocol=tcp accept'
+   15  firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=172.16.238.14 port port=8088 protocol=tcp accept'     --8080 IS APACHE PORT
    16  sudo firewall-cmd --reload
    17  sudo firewall-cmd --zone=public --list-all
    18  systemctl status httpd

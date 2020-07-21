@@ -1,0 +1,30 @@
+There is a static website of Nautilus project running in Stratos Datacenter. Based on the infrastructure, they have already configured app servers and code is already deployed there. To make it work properly, they need to configure LBR server. There are number of options for that, but team has decided to go with HAproxy.
+
+
+a. So install and configure HAproxy on LBR server using yum only and make sure all app servers are added to HAproxy load balancer. HAproxy must serve on default http port (Note: Please do not remove stats socket /var/lib/haproxy/stats entry from haproxy default config.).
+
+b. You can access the website on LBR link—to do so click on the + button on top of your terminal, select option Select port to view on Host 1, and after adding port 80 click on Display Port.
+
+
+
+    1  yum install haproxy -y
+    2  systemctl start haproxy
+    3  systemctl enable haproxy
+    4  systemctl status haproxy
+    5  cd /etc/haproxy/
+    6  ls
+    6  vi haproxy.cfg 
+
+frontend main *:80
+
+      server app1 172.16.238.10:5003 check
+      server app1 172.16.238.11:5003 check
+      server app1 172.16.238.12:5003 check     --CHECK IN APP SERVER WHICH PORT IS RUNNING ON HTTPD(netstat -anp | grep httpd)
+    
+    7  systemctl restart haproxy
+    8  curl 172.16.238.14:80
+    9  vi haproxy.cfg
+   10  yum -y install net-tools
+   11  netstat -ntpl
+   12  ssh tony@stapp01
+   13  netstat -anp | grep httpd               --APPLY THIS COMMAND IN APP SERVER TO KNOW PORT

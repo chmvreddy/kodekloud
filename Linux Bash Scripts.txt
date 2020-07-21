@@ -1,0 +1,85 @@
+TASK INCOMPLETED
+================
+ITS HAVING SOME TYPO ERROR
+
+The production support team of xFusionCorp Industries is working on developing some bash scripts to automate different day to day tasks. One is to create a bash script for taking websites backup. They have a static website running on App Server 3 in Stratos Datacenter, and they need to create a bash script named blog_backup.sh which should accomplish the following tasks. (Also remember to place the script under /scripts directory on App Server 3)
+
+
+a. Create a zip archive named xfusioncorp_blog.zip of /var/www/html/blog directory.
+
+b. Save the archive in /backup/ on App Server 3. This is a temporary storage, as backups from this location will be clean on weekly basis. Therefore, we also need to save this backup archive on Nautilus Backup Server.
+
+c. Copy the created archive to Nautilus Backup Server server in /backup/ location.
+
+d. Please make sure script won't ask for password while copying the archive file. Additionally, the respective server user (for example, tony in case of App Server 1) must be able to run it.
+
+LOGIN TO APPSERVER 3
+====================
+    1  ssh-keygen
+    2  ssh-copy-id clint@stbkp01
+        PASSWORD OF BACKUPSERVER ASKS HERE
+    3  ssh clint@stbkp01
+    4  cd /var/www/html/blog
+    5  ls -la
+    6  cd ..
+    7  ls -la
+    8  tar -czvf xfusioncorp_blog.zip /var/www/html/blog
+    9  sudo tar -czvf xfusioncorp_blog.zip /var/www/html/blog
+   10  ls
+   11  scp xfusioncorp_blog.zip clint@stbkp01:/backup/
+   12  ls -la
+   13  cd /scripts/
+   14  ls
+   15  vi blog_backup.sh
+        #!/bin/bash
+        tar czvf  xfusioncorp_blog.zip /var/www/html/blog
+        mv xfusioncorp_blog.zip /backup/
+        scp /backup/xfusioncorp_blog.zip clint@stbkp01:/backup/
+   16  cat blog_backup.sh
+   17  ls -la
+   18  chmod +x blog_backup.sh
+   19  ls -la
+   20  sh blog_backup.sh
+             (or)
+      ./blog_backup.sh
+
+
+
+
+
+
+
+
+
+
+backup server
+==============
+
+  1  cd /b
+    2  cd /backup/
+    3  ls
+    4  cd /backup/
+    5  ls
+    6  history
+
+
+
+
+app server
+===========
+
+1  ssh-keygen
+    2  ssh-copy-id clint@stbkp01
+    3  ls
+    4  cd /
+    5  ls
+    6  cd scripts/
+    7  ls
+    8  vi official_backup.sh
+    9  ls -la
+   10  chmod +x official_backup.sh
+   11  ls -la
+   12  ssh clint@stbkp01
+   13  sh official_backup.sh
+   14  ssh clint@stbkp01
+   15  history
