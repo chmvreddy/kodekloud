@@ -5,7 +5,6 @@ Sysadmin tasks: 45
 
 |Linux Kernel Parameters |100|
 |Install and Configure NFS Server |600|
-|Install And Configure SFTP |600|
 |Install and Configure Tomcat Server |600|
 |Linux Network Services |600|
 |Install and Configure Nginx as an LBR |800|

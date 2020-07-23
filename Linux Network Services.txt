@@ -1,0 +1,28 @@
+Our monitoring tool has reported an issue in Stratos Datacenter. One of our app servers has an issue, as its Apache service is not reachable on port 8081 (which is our Apache port). The service itself could be down, the firewall could be at fault, or something else could be causing the issue.
+
+
+Use tools like telnet, netstat, etc. to find and fix the issue. Also make sure Apache is reachable from the jump host without compromising any security settings.
+
+jump server
+===========
+1  sudo curl 172.16.238.10:8081          |
+2  sudo curl 172.16.238.11:8081          |--CHECK WHICH SERVER IS HAVING ISSUE   
+3  sudo curl 172.16.238.12:8081		 |
+4  ssh tony@stapp01
+
+
+FAULTY APP SERVER
+=================
+    1  sudo -i
+    2  systemctl start httpd
+    3  systemctl status -l httpd
+    4  cat /etc/httpd/conf/httpd.conf | grep Listen       --IT SHOWED 8081 HERE
+    5  netstat -ntpl
+    6  kill 292
+    7  netstat -ntpl
+    8  systemctl start httpd
+    9  ststemctl enable httpd
+   10  systemctl status -l httpd
+   11  iptables -I INPUT -p tcp --dport 8081 -j ACCEPT      --I THINK HERE WE ALLOWED CONNECTIONS TO PORT 8081
+   12  service iptables save
+
