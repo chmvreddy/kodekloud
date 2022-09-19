@@ -3,13 +3,19 @@ Some new requirements came up to automate a backup process that was done by xFus
 
 Please give executable permissions to /tmp/xfusioncorp.sh script on App Server 1. Also make sure every user should be able to execute it.
 
+
     1  cd  /tmp/
     2  ls
     3  ls -la
     4  ls -l
-    5  chmod +x xfusioncorp.sh
+    5  chmod +x xfusioncorp.sh  
     6  sudo chmod +x xfusioncorp.sh
 	sudo ./ xfusioncorp.sh
     7  ls -l
     8  cd
     9  history
+    
+    NOTE:
+    =====
+    1) LOGIN TO STAPP01 SERVER
+    2) chmod +x --- IT WILL ADD EXECUTABLE PERMISSION TO XFUSIONCORP.SH FILE
