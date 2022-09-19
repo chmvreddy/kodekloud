@@ -19,3 +19,4 @@ Please give executable permissions to /tmp/xfusioncorp.sh script on App Server 1
     =====
     1) LOGIN TO STAPP01 SERVER
     2) chmod +x --- IT WILL ADD EXECUTABLE PERMISSION TO XFUSIONCORP.SH FILE
+    3) sudo chmod +rx xfusioncorp.sh
