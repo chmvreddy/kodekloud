@@ -1,0 +1,21 @@
+sudo timedatectl set-timezone America/Indiana/Vevay
+
+
+During the daily standup, it was pointed out that the timezone across Nautilus Application Servers in Stratos Datacenter doesn't match with that of the local datacenter's timezone, which is America/Indiana/Vevay.
+
+
+
+Correct the mismatch.
+
+
+
+    1  date							----   IT WILL SHOW DATE  WHERE IT WAS (TIME ZONE)
+    2  sudo timedatectl set-timezone America/Indiana/Vevay
+    3  date
+   
+
+
+
+NOTE
+====
+1) LOGIN TO ALL APP SERVERS AND CHANGE TIME UTC TO UDT
